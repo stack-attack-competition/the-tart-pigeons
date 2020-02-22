@@ -26,16 +26,36 @@ class LoginPageState extends State<LoginPage> {
 
   onSubmit(LoginModel login) async {
     login = login.copyWith();
-    User user = await this.authenticationService.login(login);
 
-    final storage = new FlutterSecureStorage();
-    storage.write(key: STORAGE_KEY_USER_ID, value: user.id);
+    try {
+      User user = await this.authenticationService.login(login);
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (context) => HomePage(title: "Home Page", user: user)),
-    );
+      final storage = new FlutterSecureStorage();
+      storage.write(key: STORAGE_KEY_USER_ID, value: user.id);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(title: "Home Page", user: user)),
+      );
+    } catch (error) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Cannot login'),
+              content: Text(error.message),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
   }
 
   @override

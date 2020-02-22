@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +29,10 @@ class AuthenticationService {
         print(response.body);
       }
 
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
       return User.fromJson(response.body);
     });
   }
@@ -42,6 +47,11 @@ class AuthenticationService {
       if (!kReleaseMode) {
         print(response.body);
       }
+
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
       return User.fromJson(response.body);
     });
   }
@@ -51,6 +61,11 @@ class AuthenticationService {
       if (!kReleaseMode) {
         print(response.body);
       }
+
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
       return User.fromJson(response.body);
     });
   }
