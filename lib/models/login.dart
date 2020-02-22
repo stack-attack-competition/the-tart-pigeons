@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class Login {
-  final String email;
-  final String password;
-  Login({
+class LoginModel {
+  String email;
+  String password;
+  LoginModel({
     this.email,
     this.password,
   });
 
-  Login copyWith({
+  LoginModel copyWith({
     String email,
     String password,
   }) {
-    return Login(
+    return LoginModel(
       email: email ?? this.email,
       password: password ?? this.password,
     );
@@ -25,10 +25,10 @@ class Login {
     };
   }
 
-  static Login fromMap(Map<String, dynamic> map) {
+  static LoginModel fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
   
-    return Login(
+    return LoginModel(
       email: map['email'],
       password: map['password'],
     );
@@ -36,7 +36,7 @@ class Login {
 
   String toJson() => json.encode(toMap());
 
-  static Login fromJson(String source) => fromMap(json.decode(source));
+  static LoginModel fromJson(String source) => fromMap(json.decode(source));
 
   @override
   String toString() => 'Login email: $email, password: $password';
@@ -45,7 +45,7 @@ class Login {
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
   
-    return o is Login &&
+    return o is LoginModel &&
       o.email == email &&
       o.password == password;
   }

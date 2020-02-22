@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-class Register {
+class RegisterModel {
   String email;
   String password;
   String firstName;
   String lastName;
   String pictureUrl;
-  Register({
+  RegisterModel({
     this.email,
     this.password,
     this.firstName,
@@ -14,14 +14,14 @@ class Register {
     this.pictureUrl,
   });
 
-  Register copyWith({
+  RegisterModel copyWith({
     String email,
     String password,
     String firstName,
     String lastName,
     String pictureUrl,
   }) {
-    return Register(
+    return RegisterModel(
       email: email ?? this.email,
       password: password ?? this.password,
       firstName: firstName ?? this.firstName,
@@ -40,10 +40,10 @@ class Register {
     };
   }
 
-  static Register fromMap(Map<String, dynamic> map) {
+  static RegisterModel fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
   
-    return Register(
+    return RegisterModel(
       email: map['email'],
       password: map['password'],
       firstName: map['firstName'],
@@ -54,7 +54,7 @@ class Register {
 
   String toJson() => json.encode(toMap());
 
-  static Register fromJson(String source) => fromMap(json.decode(source));
+  static RegisterModel fromJson(String source) => fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -65,7 +65,7 @@ class Register {
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
   
-    return o is Register &&
+    return o is RegisterModel &&
       o.email == email &&
       o.password == password &&
       o.firstName == firstName &&
