@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/registration/registration.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,8 +21,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  User user;
 
-@override
+  @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -38,7 +40,8 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: RaisedButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RegistrationPage()));
           },
           child: Text('Go to reg.'),
         ),

@@ -93,7 +93,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                     Scaffold.of(context)
                         .showSnackBar(SnackBar(content: Text(Strings.wait)));
                         this._formKey.currentState.save();
-                        widget.onSubmit(this._register);
+                        widget.onSubmit(this._register.copyWith(pictureUrl: ""));
                   }
                 },
                 child: Text(Strings.register),
