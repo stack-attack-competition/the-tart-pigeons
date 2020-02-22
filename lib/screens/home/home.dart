@@ -77,13 +77,14 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: _childScreens[_pageIndex],
+      backgroundColor: Color.fromARGB(255, 242, 242, 242),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageIndex,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.star), title: Text('Challenges')),
           BottomNavigationBarItem(icon: Icon(Icons.attach_money), title: Text('Bets')),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Sign out')),
+          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')),
         ],
         onTap: _setPageIndex,
       ),
