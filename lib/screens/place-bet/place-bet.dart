@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_tart_pigeons/model/challenge_model.dart';
+import 'package:the_tart_pigeons/models/challenge_model.dart';
 import 'package:the_tart_pigeons/models/new-bet.dart';
 import 'package:the_tart_pigeons/services/bet.service.dart';
 import 'package:the_tart_pigeons/strings.dart';

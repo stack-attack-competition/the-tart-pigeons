@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:the_tart_pigeons/constants.dart';
-import 'package:the_tart_pigeons/model/challenge_model.dart';
+import 'package:the_tart_pigeons/models/challenge_model.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/place-bet/place-bet.dart';
 import 'package:the_tart_pigeons/widgets/userAvatar/user_avatar.dart';
