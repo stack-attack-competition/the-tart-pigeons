@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:the_tart_pigeons/constants.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/bets/bets.dart';
 import 'package:the_tart_pigeons/screens/challenges/challenges.dart';
+import 'package:the_tart_pigeons/screens/login/login.dart';
 import 'package:the_tart_pigeons/screens/profile/profile.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,15 +22,15 @@ class _HomePageState extends State<HomePage> {
 
   // TODO: Might be a good idea to merge these two lists
   // into a Tuple data structure
-  final List<String> _pageTitles = [
-    'Challenges',
-    'Bets',
-    'Profile'
-  ];
+  final List<String> _pageTitles = ['Challenges', 'Bets', 'Profile'];
 
   final List<Widget> _childScreens = [
-    ChallengesPage(showOnlySelf: false,),
-    BetsPage(showOnlySelf: false,),
+    ChallengesPage(
+      showOnlySelf: false,
+    ),
+    BetsPage(
+      showOnlySelf: false,
+    ),
     ProfilePage()
   ];
 
@@ -39,29 +42,35 @@ class _HomePageState extends State<HomePage> {
 
   void _showLogoutConfirm() {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Confirm Logout'),
-          content: Text('Are you sure you want to sign out?'),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text('Yes'),
-              onPressed: () {
-                // TODO: Implement logout here
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Confirm Logout'),
+            content: Text('Are you sure you want to sign out?'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  logout();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  void logout() {
+    final storage = new FlutterSecureStorage();
+    storage.delete(key: STORAGE_KEY_USER_ID);
+
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
@@ -71,9 +80,9 @@ class _HomePageState extends State<HomePage> {
         title: Text(_pageTitles[_pageIndex]),
         actions: <Widget>[
           IconButton(
-            onPressed: _showLogoutConfirm,
-            icon: Icon(Icons.vpn_key, color: Color.fromARGB(255, 255, 255, 255))
-          )
+              onPressed: _showLogoutConfirm,
+              icon: Icon(Icons.vpn_key,
+                  color: Color.fromARGB(255, 255, 255, 255)))
         ],
       ),
       body: _childScreens[_pageIndex],

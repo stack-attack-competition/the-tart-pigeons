@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:the_tart_pigeons/constants.dart';
 import 'package:the_tart_pigeons/models/register.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/home/home.dart';
@@ -25,6 +27,10 @@ class RegistrationPageState extends State<RegistrationPage> {
   onSubmit(RegisterModel register) async {
     register = register.copyWith();
     User user = await this.authenticationService.register(register);
+
+    final storage = new FlutterSecureStorage();
+    storage.write(key: STORAGE_KEY_USER_ID, value: user.id);
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

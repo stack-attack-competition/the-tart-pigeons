@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:the_tart_pigeons/constants.dart';
 import 'package:the_tart_pigeons/models/login.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/home/home.dart';
@@ -24,12 +26,36 @@ class LoginPageState extends State<LoginPage> {
 
   onSubmit(LoginModel login) async {
     login = login.copyWith();
-    User user = await this.authenticationService.login(login);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (context) => HomePage(title: "Home Page", user: user)),
-    );
+
+    try {
+      User user = await this.authenticationService.login(login);
+
+      final storage = new FlutterSecureStorage();
+      storage.write(key: STORAGE_KEY_USER_ID, value: user.id);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(title: "Home Page", user: user)),
+      );
+    } catch (error) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Cannot login'),
+              content: Text(error.message),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
   }
 
   @override
@@ -56,7 +82,8 @@ class LoginPageState extends State<LoginPage> {
                       textColor: Colors.blueAccent,
                       onPressed: () => Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => RegistrationPage()),
+                        MaterialPageRoute(
+                            builder: (context) => RegistrationPage()),
                       ),
                     ),
                   )

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -27,11 +28,16 @@ class AuthenticationService {
       if (!kReleaseMode) {
         print(response.body);
       }
+
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
       return User.fromJson(response.body);
     });
   }
 
-    Future<User> login(LoginModel login) async {
+  Future<User> login(LoginModel login) async {
     var body = json.encode(login.toMap());
 
     return http
@@ -41,6 +47,25 @@ class AuthenticationService {
       if (!kReleaseMode) {
         print(response.body);
       }
+
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
+      return User.fromJson(response.body);
+    });
+  }
+
+  Future<User> getUser(String userId) async {
+    return http.get("$apiBaseUrl/users/$userId").then((http.Response response) {
+      if (!kReleaseMode) {
+        print(response.body);
+      }
+
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
       return User.fromJson(response.body);
     });
   }
