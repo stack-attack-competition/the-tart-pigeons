@@ -5,7 +5,7 @@ import 'package:the_tart_pigeons/strings.dart';
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({Key key, this.onSubmit}) : super(key: key);
 
-  final Function(Register register) onSubmit;
+  final Function(RegisterModel register) onSubmit;
 
   @override
   RegistrationFormState createState() {
@@ -20,7 +20,7 @@ class RegistrationFormState extends State<RegistrationForm> {
   // Note: This is a `GlobalKey<FormState>`,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
-  final _register = Register();
+  final _register = RegisterModel();
 
   final TextEditingController _passTextEditingController =
       TextEditingController();

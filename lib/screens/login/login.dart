@@ -1,28 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:the_tart_pigeons/models/register.dart';
+import 'package:the_tart_pigeons/models/login.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/home/home.dart';
-import 'package:the_tart_pigeons/screens/registration/widgets/registration-form/registration-form.dart';
+import 'package:the_tart_pigeons/screens/login/widgets/login-form.dart';
 import 'package:the_tart_pigeons/services/authentication.service.dart';
 
-class RegistrationPage extends StatefulWidget {
-  RegistrationPage({Key key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key key}) : super(key: key);
 
-  final String title = "Registration";
+  final String title = "Login";
 
   @override
-  RegistrationPageState createState() => RegistrationPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class RegistrationPageState extends State<RegistrationPage> {
+class LoginPageState extends State<LoginPage> {
   AuthenticationService authenticationService = new AuthenticationService();
-  RegisterModel register;
+  LoginModel login;
 
-  onSubmit(RegisterModel register) async {
-    register = register.copyWith();
-    User user = await this.authenticationService.register(register);
+  onSubmit(LoginModel login) async {
+    login = login.copyWith();
+    User user = await this.authenticationService.login(login);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -44,7 +44,7 @@ class RegistrationPageState extends State<RegistrationPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  RegistrationForm(
+                  LoginForm(
                     onSubmit: this.onSubmit,
                   )
                 ],
