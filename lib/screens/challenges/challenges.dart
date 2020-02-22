@@ -8,10 +8,11 @@ import 'package:the_tart_pigeons/screens/challengeDetails/challenge_details.dart
 import 'package:the_tart_pigeons/widgets/challengeCard/challenge_card.dart';
 
 class ChallengesPage extends StatefulWidget {
-  ChallengesPage({Key key, this.title, this.showOnlySelf}) : super(key: key);
+  ChallengesPage({Key key, this.title, this.showOnlySelf, this.userId}) : super(key: key);
 
   final String title;
   final bool showOnlySelf;
+  final String userId;
 
   @override
   _ChallengesPageState createState() => _ChallengesPageState();
@@ -67,7 +68,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                       onCardTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => ChallengeDetailsPage(challenge: challenge,)
+                            builder: (context) => ChallengeDetailsPage(challenge: challenge, userId: widget.userId,)
                           )
                         );
                       },

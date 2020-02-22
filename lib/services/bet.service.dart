@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:html';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +23,7 @@ class BetService {
       if (response.statusCode == 200) {
         final bets = jsonDecode(response.body).cast<Map<String, dynamic>>();
 
-        return bets.map<Bet>((json) => Bet.fromJson(json)).toList();
+        return bets.map<Bet>((json) => Bet.fromMap(json)).toList();
       } else {
         print(response.body);
         throw Exception('Failed to fetch bets');
@@ -33,12 +33,12 @@ class BetService {
 
   Future<Bet> postBet(NewBet newBet) async {
     var body = json.encode(newBet.toMap());
-
     return http
-        .post("$apiBaseUrl/auth/register",
+        .post("$apiBaseUrl/bets",
             headers: {'Content-type': 'application/json'}, body: body)
         .then((http.Response response) {
       if (!kReleaseMode) {
+        print("BET RESPONSE");
         print(response.body);
       }
 

@@ -5,12 +5,15 @@ import 'package:http/http.dart' as http;
 import 'package:the_tart_pigeons/constants.dart';
 import 'package:the_tart_pigeons/model/challenge_model.dart';
 import 'package:the_tart_pigeons/models/user.dart';
+import 'package:the_tart_pigeons/screens/place-bet/place-bet.dart';
 import 'package:the_tart_pigeons/widgets/userAvatar/user_avatar.dart';
 
 class ChallengeDetailsPage extends StatefulWidget {
-  ChallengeDetailsPage({Key key, @required this.challenge}) : super(key: key);
+  ChallengeDetailsPage({Key key, @required this.challenge, this.userId})
+      : super(key: key);
 
   final Challenge challenge;
+  final String userId;
 
   @override
   _ChallengeDetailsPageState createState() => _ChallengeDetailsPageState();
@@ -30,8 +33,14 @@ class _ChallengeDetailsPageState extends State<ChallengeDetailsPage> {
     }
   }
 
-  void PlaceBet(String betId) {
-    //TODO: Place bet
+  void placeBet() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlaceBetPage(
+                  challenge: widget.challenge,
+                  userId: widget.userId,
+                )));
   }
 
   @override
@@ -96,7 +105,7 @@ class _ChallengeDetailsPageState extends State<ChallengeDetailsPage> {
                         textAlign: TextAlign.center,
                       ),
                       FlatButton(
-                        onPressed: () => this.PlaceBet(widget.challenge.id),
+                        onPressed: this.placeBet,
                         child: Text('Bet'),
                         color: Colors.green,
                         textColor: Colors.white,

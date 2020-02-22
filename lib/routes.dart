@@ -12,5 +12,5 @@ final routes = <String, WidgetBuilder>{
   '/login': (BuildContext context) => new LoginPage(),
   '/my-challenges': (BuildContext context) => new ChallengesPage(showOnlySelf: true,),
   '/my-bets': (BuildContext context) => new BetsPage(showOnlySelf: true,),
-  '/challenge-details': (BuildContext context) => new ChallengeDetailsPage(challenge: null,),
+  '/challenge-details': (BuildContext context) => new ChallengeDetailsPage(challenge: null),
 };

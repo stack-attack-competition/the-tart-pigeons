@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _childScreens() => [
         ChallengesPage(
           showOnlySelf: false,
+          userId: userId,
         ),
         BetsPage(
           showOnlySelf: false,
