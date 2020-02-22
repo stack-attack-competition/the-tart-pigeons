@@ -14,25 +14,29 @@ class HomePage extends StatefulWidget {
   final User user;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(userId: this.user.id);
 }
 
 class _HomePageState extends State<HomePage> {
+  _HomePageState({this.userId}) : super();
+
   int _pageIndex = 0;
+  final String userId;
 
   // TODO: Might be a good idea to merge these two lists
   // into a Tuple data structure
   final List<String> _pageTitles = ['Challenges', 'Bets', 'Profile'];
 
-  final List<Widget> _childScreens = [
-    ChallengesPage(
-      showOnlySelf: false,
-    ),
-    BetsPage(
-      showOnlySelf: false,
-    ),
-    ProfilePage()
-  ];
+  List<Widget> _childScreens() => [
+        ChallengesPage(
+          showOnlySelf: false,
+        ),
+        BetsPage(
+          showOnlySelf: false,
+          userId: userId,
+        ),
+        ProfilePage()
+      ];
 
   void _setPageIndex(index) {
     setState(() {
@@ -70,7 +74,8 @@ class _HomePageState extends State<HomePage> {
     final storage = new FlutterSecureStorage();
     storage.delete(key: STORAGE_KEY_USER_ID);
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
@@ -85,15 +90,18 @@ class _HomePageState extends State<HomePage> {
                   color: Color.fromARGB(255, 255, 255, 255)))
         ],
       ),
-      body: _childScreens[_pageIndex],
+      body: _childScreens()[_pageIndex],
       backgroundColor: Color.fromARGB(255, 242, 242, 242),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageIndex,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.star), title: Text('Challenges')),
-          BottomNavigationBarItem(icon: Icon(Icons.attach_money), title: Text('Bets')),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.star), title: Text('Challenges')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.attach_money), title: Text('Bets')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), title: Text('Profile')),
         ],
         onTap: _setPageIndex,
       ),
