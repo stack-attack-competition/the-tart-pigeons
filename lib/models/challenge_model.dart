@@ -34,4 +34,28 @@ class Challenge {
       proofUrl: json['proofUrl'] as String,
     );
   }
+
+  Challenge copyWith({
+    String id,
+    bool isDeleted,
+    String author,
+    String title,
+    String description,
+    bool isActive,
+    String endDate,
+    bool outcome,
+    String proofUrl,
+  }) {
+    return Challenge(
+      id: id ?? this.id,
+      isDeleted: isDeleted ?? this.isDeleted,
+      author: author ?? this.author,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
+      endDate: endDate ?? this.endDate,
+      outcome: outcome ?? this.outcome,
+      proofUrl: proofUrl ?? this.proofUrl
+    );
+  }
 }
