@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:the_tart_pigeons/models/register.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/home/home.dart';
+import 'package:the_tart_pigeons/screens/login/login.dart';
 import 'package:the_tart_pigeons/screens/registration/widgets/registration-form/registration-form.dart';
 import 'package:the_tart_pigeons/services/authentication.service.dart';
+import 'package:the_tart_pigeons/strings.dart';
 
 class RegistrationPage extends StatefulWidget {
   RegistrationPage({Key key}) : super(key: key);
@@ -46,6 +48,17 @@ class RegistrationPageState extends State<RegistrationPage> {
                 children: <Widget>[
                   RegistrationForm(
                     onSubmit: this.onSubmit,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 7),
+                    child: OutlineButton(
+                      child: Text(Strings.alreadySignedUp.toUpperCase()),
+                      textColor: Colors.blueAccent,
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      ),
+                    ),
                   )
                 ],
               ))),

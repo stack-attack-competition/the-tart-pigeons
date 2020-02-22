@@ -5,7 +5,9 @@ import 'package:the_tart_pigeons/models/login.dart';
 import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/home/home.dart';
 import 'package:the_tart_pigeons/screens/login/widgets/login-form.dart';
+import 'package:the_tart_pigeons/screens/registration/registration.dart';
 import 'package:the_tart_pigeons/services/authentication.service.dart';
+import 'package:the_tart_pigeons/strings.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -46,6 +48,17 @@ class LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   LoginForm(
                     onSubmit: this.onSubmit,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 7),
+                    child: OutlineButton(
+                      child: Text(Strings.notRegisteredYet.toUpperCase()),
+                      textColor: Colors.blueAccent,
+                      onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => RegistrationPage()),
+                      ),
+                    ),
                   )
                 ],
               ))),

@@ -52,7 +52,7 @@ class LoginFormState extends State<LoginForm> {
               child: SizedBox(
                 width: double.infinity,
                 child: RaisedButton(
-                  child: Text(Strings.register.toUpperCase()),
+                  child: Text(Strings.login.toUpperCase()),
                   color: Colors.deepOrangeAccent,
                   textColor: Colors.white,
                   onPressed: () {
