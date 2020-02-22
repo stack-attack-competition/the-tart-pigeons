@@ -91,9 +91,12 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _pageIndex,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.star), title: Text('Challenges')),
-          BottomNavigationBarItem(icon: Icon(Icons.attach_money), title: Text('Bets')),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.star), title: Text('Challenges')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.attach_money), title: Text('Bets')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), title: Text('Profile')),
         ],
         onTap: _setPageIndex,
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:the_tart_pigeons/model/challenge_model.dart';
+import 'package:the_tart_pigeons/screens/challengeDetails/challenge_details.dart';
 import 'dart:convert';
 
 import 'package:the_tart_pigeons/widgets/challengeCard/challenge_card.dart';
@@ -63,7 +64,11 @@ class _ChallengesPageState extends State<ChallengesPage> {
                       isActive: challenge.isActive,
                       isOutcomePositive: challenge.outcome,
                       onCardTap: () {
-                        print('${challenge.title} was clicked');
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ChallengeDetailsPage(challenge: challenge,)
+                          )
+                        );
                       },
                     );
                   }

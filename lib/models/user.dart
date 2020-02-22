@@ -47,7 +47,7 @@ class User {
 
   static User fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-  
+
     return User(
       id: map['id'],
       isDeleted: map['isDeleted'],
@@ -55,6 +55,17 @@ class User {
       firstName: map['firstName'],
       lastName: map['lastName'],
       pictureUrl: map['pictureUrl'],
+    );
+  }
+
+  factory User.fromJsonData(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      isDeleted: json['isDeleted'],
+      email: json['email'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      pictureUrl: json['pictureUrl'],
     );
   }
 
@@ -70,7 +81,7 @@ class User {
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-  
+
     return o is User &&
       o.id == id &&
       o.isDeleted == isDeleted &&

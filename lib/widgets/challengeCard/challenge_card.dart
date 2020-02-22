@@ -39,7 +39,7 @@ class _ChallengeCardState extends State<ChallengeCard> {
             children: <Widget>[
               Wrap(
                 children: [
-                  Avatar(sourceUrl: widget.avatarUrl),
+                  Avatar(sourceUrl: widget.avatarUrl, size: AvatarSize.small),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -82,8 +82,8 @@ class _ChallengeCardState extends State<ChallengeCard> {
                             ? Chip(
                               label: Text(
                                 widget.isOutcomePositive
-                                  ? 'Positive outc.'
-                                  : 'Negative outc.',
+                                  ? 'Completed'
+                                  : 'Unsuccessful',
                                 style: TextStyle(color: Colors.white)
                               ),
                               backgroundColor: widget.isOutcomePositive
