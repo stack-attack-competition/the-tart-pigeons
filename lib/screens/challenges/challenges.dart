@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:the_tart_pigeons/constants.dart';
 import 'package:the_tart_pigeons/models/challenge_model.dart';
 import 'package:the_tart_pigeons/screens/challengeCreate/challenge_create.dart';
 import 'package:the_tart_pigeons/screens/challengeDetails/challenge_details.dart';
-import 'dart:convert';
-
 import 'package:the_tart_pigeons/widgets/challengeCard/challenge_card.dart';
 
 class ChallengesPage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   // TODO: Create a common reference for this API URL
   // Note: This part of code could be moved to a Challenge related service
   Future<List<Challenge>> fetchChallenges() async {
-    final response = await http.get('http://localhost:3000/challenges');
+    final response = await http.get('$apiBaseUrl/challenges');
 
     if (response.statusCode == 200) {
       final challenges = jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -68,6 +69,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ChallengeDetailsPage(
                                           challenge: challenge,
+                                          userId: widget.userId,
                                         )));
                               },
                             );

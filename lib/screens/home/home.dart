@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  _HomePageState({ this.userId });
+  _HomePageState({this.userId}) : super();
 
   int _pageIndex = 0;
   final String userId;
@@ -28,15 +28,16 @@ class _HomePageState extends State<HomePage> {
   final List<String> _pageTitles = ['Challenges', 'Bets', 'Profile'];
 
   List<Widget> _childScreens() => [
-    ChallengesPage(
-      showOnlySelf: false,
-      userId: userId,
-    ),
-    BetsPage(
-      showOnlySelf: false,
-    ),
-    ProfilePage()
-  ];
+        ChallengesPage(
+          showOnlySelf: false,
+          userId: userId,
+        ),
+        BetsPage(
+          showOnlySelf: false,
+          userId: userId,
+        ),
+        ProfilePage()
+      ];
 
   void _setPageIndex(index) {
     setState(() {
@@ -74,7 +75,8 @@ class _HomePageState extends State<HomePage> {
     final storage = new FlutterSecureStorage();
     storage.delete(key: STORAGE_KEY_USER_ID);
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
