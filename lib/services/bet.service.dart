@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:html';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:the_tart_pigeons/constants.dart';
 import 'package:the_tart_pigeons/models/bet.dart';
+import 'package:the_tart_pigeons/models/new-bet.dart';
 
 class BetService {
   static final BetService _betService = BetService._internal();
@@ -25,6 +28,25 @@ class BetService {
         print(response.body);
         throw Exception('Failed to fetch bets');
       }
+    });
+  }
+
+  Future<Bet> postBet(NewBet newBet) async {
+    var body = json.encode(newBet.toMap());
+
+    return http
+        .post("$apiBaseUrl/auth/register",
+            headers: {'Content-type': 'application/json'}, body: body)
+        .then((http.Response response) {
+      if (!kReleaseMode) {
+        print(response.body);
+      }
+
+      if (response.statusCode == HttpStatus.unauthorized) {
+        throw FlutterError("Unauthorized");
+      }
+
+      return Bet.fromJson(response.body);
     });
   }
 }

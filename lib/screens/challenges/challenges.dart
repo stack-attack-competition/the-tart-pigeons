@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:the_tart_pigeons/model/challenge_model.dart';
-import 'package:the_tart_pigeons/screens/challengeDetails/challenge_details.dart';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:the_tart_pigeons/constants.dart';
+import 'package:the_tart_pigeons/model/challenge_model.dart';
+import 'package:the_tart_pigeons/screens/challengeDetails/challenge_details.dart';
 import 'package:the_tart_pigeons/widgets/challengeCard/challenge_card.dart';
 
 class ChallengesPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   // TODO: Create a common reference for this API URL
   Future<List<Challenge>> fetchChallenges() async {
     final response = await http.get(
-      'http://localhost:3000/challenges'
+      '$apiBaseUrl/challenges'
     );
 
     if (response.statusCode == 200) {
