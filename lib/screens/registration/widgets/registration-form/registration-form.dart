@@ -63,6 +63,15 @@ class RegistrationFormState extends State<RegistrationForm> {
                 },
                 onSaved: (val) => setState(() => _register.lastName = val)),
             TextFormField(
+                decoration: InputDecoration(labelText: "Profile Picture"),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return Strings.requiredFieldError;
+                  }
+                  return null;
+                },
+                onSaved: (val) => setState(() => _register.pictureUrl = val)),
+            TextFormField(
                 controller: _passTextEditingController,
                 decoration: InputDecoration(labelText: "Password"),
                 obscureText: true,
@@ -94,7 +103,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                       Scaffold.of(context)
                           .showSnackBar(SnackBar(content: Text(Strings.wait)));
                       this._formKey.currentState.save();
-                      widget.onSubmit(this._register.copyWith(pictureUrl: ""));
+                      widget.onSubmit(this._register);
                     }
                   },
                 ),
