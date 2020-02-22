@@ -1,50 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:the_tart_pigeons/models/user.dart';
-import 'package:the_tart_pigeons/screens/registration/registration.dart';
+import 'package:the_tart_pigeons/screens/bets/bets.dart';
+import 'package:the_tart_pigeons/screens/challenges/challenges.dart';
+import 'package:the_tart_pigeons/screens/profile/profile.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  HomePage({Key key, this.title, this.user}) : super(key: key);
 
   final String title;
+  final User user;
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  User user;
+  int _pageIndex = 0;
+
+  // TODO: Might be a good idea to merge these two lists
+  // into a Tuple data structure
+  final List<String> _pageTitles = [
+    'Challenges',
+    'Bets',
+    'Profile'
+  ];
+
+  final List<Widget> _childScreens = [
+    ChallengesPage(showOnlySelf: false,),
+    BetsPage(showOnlySelf: false,),
+    ProfilePage()
+  ];
+
+  void _setPageIndex(index) {
+    setState(() {
+      _pageIndex = index;
+    });
+  }
+
+  void _showLogoutConfirm() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Logout'),
+          content: Text('Are you sure you want to sign out?'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('Yes'),
+              onPressed: () {
+                // TODO: Implement logout here
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(_pageTitles[_pageIndex]),
+        actions: <Widget>[
+          IconButton(
+            onPressed: _showLogoutConfirm,
+            icon: Icon(Icons.vpn_key, color: Color.fromARGB(255, 255, 255, 255))
+          )
+        ],
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RegistrationPage()));
-          },
-          child: Text('Go to reg.'),
-        ),
+      body: _childScreens[_pageIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _pageIndex,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.star), title: Text('Challenges')),
+          BottomNavigationBarItem(icon: Icon(Icons.attach_money), title: Text('Bets')),
+          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Sign out')),
+        ],
+        onTap: _setPageIndex,
       ),
     );
   }

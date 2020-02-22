@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_tart_pigeons/models/register.dart';
 import 'package:the_tart_pigeons/models/user.dart';
+import 'package:the_tart_pigeons/screens/home/home.dart';
 import 'package:the_tart_pigeons/screens/registration/widgets/registration-form/registration-form.dart';
 import 'package:the_tart_pigeons/services/authentication.service.dart';
 
@@ -22,6 +23,11 @@ class RegistrationPageState extends State<RegistrationPage> {
   onSubmit(Register register) async {
     register = register.copyWith();
     User user = await this.authenticationService.register(register);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => HomePage(title: "Home Page", user: user)),
+    );
   }
 
   @override
