@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:the_tart_pigeons/screens/home/home.dart';
+import 'package:the_tart_pigeons/screens/registration/registration.dart';
 
 import 'routes.dart';
 
 void main() => runApp(new MaterialApp(
       title: 'Flutter Demo',
       routes: routes,
-      home: HomePage(title: 'Flutter Demo Home Page'),
+      // home: HomePage(title: 'Flutter Demo Home Page'),
+      home: RegistrationPage(),
       theme: ThemeData(
         // This is the theme of your application.
         //

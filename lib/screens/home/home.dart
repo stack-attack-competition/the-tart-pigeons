@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:the_tart_pigeons/models/user.dart';
 import 'package:the_tart_pigeons/screens/bets/bets.dart';
 import 'package:the_tart_pigeons/screens/challenges/challenges.dart';
 import 'package:the_tart_pigeons/screens/profile/profile.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key key, this.title, this.user}) : super(key: key);
 
   final String title;
+  final User user;
 
   @override
   _HomePageState createState() => _HomePageState();
