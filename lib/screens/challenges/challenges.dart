@@ -21,7 +21,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   // TODO: Create a common reference for this API URL
   Future<List<Challenge>> fetchChallenges() async {
     final response = await http.get(
-      'https://stack-attack-bed.herokuapp.com/mock/challenges'
+      'http://localhost:3000/challenges'
     );
 
     if (response.statusCode == 200) {
@@ -60,6 +60,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                     return ChallengeCard(
                       title: challenge.title,
                       description: challenge.description,
+                      isActive: challenge.isActive,
+                      isOutcomePositive: challenge.outcome,
                       onCardTap: () {
                         print('${challenge.title} was clicked');
                       },
