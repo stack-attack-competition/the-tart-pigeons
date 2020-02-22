@@ -17,7 +17,6 @@ class _ChallengeCreatePageState extends State<ChallengeCreatePage> {
   ChallengeCreate challengeCreate;
 
   void onSubmit(ChallengeCreate challengeCreate) async {
-
     challengeCreate = challengeCreate.copyWith(author: widget.userId);
     await this.challengeService.create(challengeCreate);
 

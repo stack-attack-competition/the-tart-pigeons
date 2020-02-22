@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
   final User user;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(userId: this.user.id);
 }
 
 class _HomePageState extends State<HomePage> {
