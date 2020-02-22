@@ -27,17 +27,27 @@ class AuthenticationService {
       if (!kReleaseMode) {
         print(response.body);
       }
+
       return User.fromJson(response.body);
     });
   }
 
-    Future<User> login(LoginModel login) async {
+  Future<User> login(LoginModel login) async {
     var body = json.encode(login.toMap());
 
     return http
         .post("$apiBaseUrl/auth/login",
             headers: {'Content-type': 'application/json'}, body: body)
         .then((http.Response response) {
+      if (!kReleaseMode) {
+        print(response.body);
+      }
+      return User.fromJson(response.body);
+    });
+  }
+
+  Future<User> getUser(String userId) async {
+    return http.get("$apiBaseUrl/users/$userId").then((http.Response response) {
       if (!kReleaseMode) {
         print(response.body);
       }
