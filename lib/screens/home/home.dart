@@ -14,19 +14,23 @@ class HomePage extends StatefulWidget {
   final User user;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(userId: this.user.id);
 }
 
 class _HomePageState extends State<HomePage> {
+  _HomePageState({ this.userId });
+
   int _pageIndex = 0;
+  final String userId;
 
   // TODO: Might be a good idea to merge these two lists
   // into a Tuple data structure
   final List<String> _pageTitles = ['Challenges', 'Bets', 'Profile'];
 
-  final List<Widget> _childScreens = [
+  List<Widget> _childScreens() => [
     ChallengesPage(
       showOnlySelf: false,
+      userId: userId,
     ),
     BetsPage(
       showOnlySelf: false,
@@ -85,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                   color: Color.fromARGB(255, 255, 255, 255)))
         ],
       ),
-      body: _childScreens[_pageIndex],
+      body: _childScreens()[_pageIndex],
       backgroundColor: Color.fromARGB(255, 242, 242, 242),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageIndex,
